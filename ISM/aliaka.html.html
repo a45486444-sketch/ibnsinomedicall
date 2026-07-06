@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBN-SINO MEDICAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f7faff;
+            color: #1f2d3d;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                background: radial-gradient(circle at 10% 20%,rgba(120,255,120,.15),transparent 40%), radial-gradient(circle at 80% 70%,rgba(255,200,200,.15),transparent 40%);
+                z-index: -1;
+            }
+
+        /* 🍃 Падающие листья */
+        .leaf {
+            position: fixed;
+            top: -40px;
+            font-size: 22px;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: .9;
+            }
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 8%;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .blue {
+            color: #2b6cff;
+        }
+
+        .red {
+            color: #ff2b2b;
+        }
+
+        nav a {
+            margin-left: 28px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: .25s;
+        }
+
+            nav a:hover {
+                color: #2b6cff;
+            }
+
+        .cta-nav {
+            margin-left: 35px;
+            padding: 10px 22px;
+            border-radius: 10px;
+            background: #2b6cff;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2070') center/cover;
+        }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: rgba(20,40,90,.65);
+            }
+
+        .hero-content {
+            position: relative;
+            max-width: 850px;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: .95;
+            margin-bottom: 35px;
+        }
+
+        .cta {
+            padding: 18px 42px;
+            border: none;
+            border-radius: 14px;
+            background: #2b6cff;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+            .cta:hover {
+                box-shadow: 0 10px 25px rgba(43,108,255,.35);
+                opacity: 0.9;
+            }
+
+        /* Sections */
+        section {
+            padding: 120px 10%;
+        }
+
+        .section-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        /* Grid — карточки одинаковой высоты */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 35px;
+            align-items: start; /* ← каждая карточка растёт сама по себе */
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            padding: 45px;
+            border-radius: 18px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+            transition: transform .3s, box-shadow .3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+            /* ✅ Эффект только на карточке под мышью */
+            .card:hover {
+                transform: translateY(-8px) scale(1.03);
+                box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            }
+
+            .card::before {
+                content: "🌸";
+                position: absolute;
+                font-size: 28px;
+                opacity: 0.15;
+                top: 10px;
+                right: 10px;
+                pointer-events: none;
+                animation: floatFlower 5s ease-in-out infinite alternate;
+            }
+
+            .card::after {
+                content: "🍃";
+                position: absolute;
+                font-size: 24px;
+                opacity: 0.15;
+                bottom: 10px;
+                left: 10px;
+                pointer-events: none;
+                animation: floatLeaf 4s ease-in-out infinite alternate;
+            }
+
+        @keyframes floatFlower {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-12px) rotate(20deg);
+            }
+        }
+
+        @keyframes floatLeaf {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-10px) rotate(-15deg);
+            }
+        }
+
+        .card h3 {
+            color: #2b6cff;
+        }
+
+        /* Doctors */
+        .doctor-list {
+            display: none;
+            margin-top: 15px;
+            animation: fade .25s ease;
+        }
+
+            .doctor-list.active {
+                display: block;
+            }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .doctor-name {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2b6cff;
+            transition: .2s;
+        }
+
+            .doctor-name:hover {
+                background: #eef4ff;
+                transform: scale(1.06);
+            }
+
+        /* Contacts */
+        .contact {
+            text-align: center;
+            color: white;
+            border-radius: 25px;
+            padding: 90px 10%;
+            margin: 0 8% 80px;
+            position: relative;
+            overflow: hidden;
+            background: url("logo.jpg") center/cover no-repeat;
+        }
+
+            .contact::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: rgba(0,0,0,0.45);
+            }
+
+            .contact * {
+                position: relative;
+                z-index: 2;
+            }
+
+        .phone, .address {
+            font-size: 22px;
+            margin: 10px;
+            font-weight: 600;
+        }
+
+        .contact a.cta {
+            margin: 5px;
+            display: inline-block;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.65);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .close {
+            float: right;
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        /* 📱 Телефонная версия */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 5%;
+            }
+
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+                nav a {
+                    margin: 5px;
+                    font-size: 14px;
+                }
+
+            .hero {
+                height: auto;
+                padding: 80px 20px;
+            }
+
+                .hero h1 {
+                    font-size: 34px;
+                }
+
+                .hero p {
+                    font-size: 16px;
+                }
+
+            .cta {
+                padding: 14px 25px;
+                font-size: 16px;
+            }
+
+            section {
+                padding: 80px 6%;
+            }
+
+            .section-title {
+                font-size: 30px;
+                margin-bottom: 40px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .card {
+                padding: 30px;
+            }
+
+            .contact {
+                margin: 0 4% 60px;
+                padding: 60px 6%;
+            }
+
+            .phone, .address {
+                font-size: 18px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-wrap">
+            <img src="logo.jpg" class="logo-img">
+            <div class="logo-text"><span class="blue">IBN-SINO</span> <span class="red">MEDICAL</span></div>
+        </div>
+        <nav>
+            <a href="#doctors">Наши услуги</a>
+            <a href="#services">Расширенный список услуг</a>
+            <a href="#contacts">Контакты</a>
+            <a class="cta-nav" href="https://t.me/ibnsinomedic" target="_blank">Записаться</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Современная медицина для всей семьи</h1>
+            <p>Точная диагностика, опытные врачи и высокий уровень сервиса — заботимся о вашем здоровье каждый день.</p>
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+                <a href="https://t.me/ibnsinomedic" target="_blank" class="cta">Записаться на приём</a>
+                <a href="tel:+998994430300" class="cta">Позвонить</a>
+            </div>
+        </div>
+    </div>
+
+    <section id="doctors">
+        <h2 class="section-title">Наши услуги</h2>
+        <div class="grid">
+            <div class="card" onclick="toggleDoctors('lor')">
+                <h3>ЛОР</h3>
+                <div id="lor" class="doctor-list">
+                    <div class="doctor-name" onclick="showBio(event,'Др. Исматов Хамидулла Хикматуллаевич','ЛОР-врач с опытом более 24 лет.')">Др. Исматов Хамидулла Хикматуллаевич</div>
+                    <div class="doctor-name" onclick="showBio(event,'Др. Худайкулов Собитжон Олимбойович','ЛОР-врач с опытом более 10 лет.')">Др. Худайкулов Собитжон Олимбойович</div>
+                    <div class="doctor-name" onclick="showBio(event,'Др. Кариева Гульнора Саитаслановна','ЛОР-врач с опытом 23 лет.')">Др. Кариева Гульнора Саитаслановна</div>
+                    <div class="doctor-name" onclick="showBio(event,'Др. Матчанов Жахонгир Сеитбаевич','ЛОР-врач с опытом более 9 лет.')">Др. Матчанов Жахонгир Сеитбаевич</div>
+                </div>
+            </div>
+            <div class="card" onclick="toggleDoctors('uzi')">
+                <h3>УЗИ</h3>
+                <div id="uzi" class="doctor-list">
+                    <div class="doctor-name" onclick="showBio(event,'Др. Улугбекова Нодира Хатамбековна','Эксперт ультразвуковой диагностики и врач гинеколог с опытом более 30 лет.')">Др. Улугбекова Нодира Хатамбековна</div>
+                    <div class="doctor-name" onclick="showBio(event,'Др. Абдулаева Фарида Хаирлаевна','Эксперт ультразвуковой диагностики с опытом более 8 лет.')">Др. Абдулаева Фарида Хаирлаевна</div>
+                </div>
+            </div>
+            <div class="card" onclick="toggleDoctors('ped')">
+                <h3>Педиатр</h3>
+                <div id="ped" class="doctor-list">
+                    <div class="doctor-name" onclick="showBio(event,'Др. Бабаева Барно Анваровна','Детский врач с опытом более 22 лет.')">Др. Бабаева Барно Анваровна</div>
+                </div>
+            </div>
+            <div class="card" onclick="toggleDoctors('dent')">
+                <h3>Стоматолог</h3>
+                <div id="dent" class="doctor-list">
+                    <div class="doctor-name" onclick="showBio(event,'Врач Мавлонов Мираббос Фарходович','Стоматолог с опытом более 7 лет.')">Врач Мавлонов Мираббос Фарходович</div>
+                    <div class="doctor-name" onclick="showBio(event,'Врач Саидов Комил Абдулхаевич','Стоматолог с опытом более 15 лет за рубежом, общий стаж более 30 лет.')">Врач Саидов Комил Абдулхаевич</div>
+                </div>
+            </div>
+            <div class="card" onclick="toggleDoctors('ter')">
+                <h3>Терапевт</h3>
+                <div id="ter" class="doctor-list">
+                    <div class="doctor-name" onclick="showBio(event,'Врач Бабаева Барно Анваровна','Врач общей практики с опытом более 22 лет.')">Врач Бабаева Барно Анваровна</div>
+                </div>
+            </div>
+            <div class="card" onclick="toggleDoctors('gen')">
+                <h3>Гинеколог</h3>
+                <div id="gen" class="doctor-list">
+                    <div class="doctor-name" onclick="showBio(event,'Врач Улугбекова Нодира Хатамбековна','Врач гинеколог с опытом более 30 лет.')">Врач Улугбекова Нодира Хатамбековна</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title">Расширенный список услуг</h2>
+        <div class="grid">
+            <div class="card" onclick="showService('lab')"><h3>Лаборатория</h3></div>
+            <div class="card" onclick="showService('iv')"><h3>Процедурный кабинет</h3></div>
+        </div>
+    </section>
+
+    <section id="contacts" class="contact">
+        <h2 class="section-title">Контакты</h2>
+        <div class="phone">📞 +998 99 443 03 00</div>
+        <div class="phone">📞 +998 99 929 03 00</div>
+        <div class="address">📍 Адрес: Массив Бельтепа, 32А/1</div>
+        <div style="margin-top:20px;">
+            <a href="https://t.me/+Bhs4wOcCiOhmNDky" target="_blank" class="cta">Telegram</a>
+            <a href="tel:+998994430300" class="cta">Позвонить</a>
+            <a href="https://www.instagram.com/ibnsino_medical?igsh=b2oxcHl0YWwwaGpr" target="_blank" class="cta">Instagram</a>
+        </div>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">✖</span>
+            <div id="modal-text"></div>
+        </div>
+    </div>
+
+    <script>
+        function createLeaf() {
+            const leaf = document.createElement("div");
+            leaf.classList.add("leaf");
+            const types = ["🍃", "🌸", "🌿", "🍃", "🌸", "🌿"];
+            leaf.innerHTML = types[Math.floor(Math.random() * types.length)];
+            leaf.style.left = Math.random() * 100 + "vw";
+            leaf.style.animationDuration = (6 + Math.random() * 6) + "s";
+            document.body.appendChild(leaf);
+            setTimeout(() => { leaf.remove(); }, 12000);
+        }
+        setInterval(createLeaf, 700);
+
+        function toggleDoctors(id) {
+            document.querySelectorAll(".doctor-list").forEach(list => {
+                if (list.id !== id) list.classList.remove("active");
+            });
+            document.getElementById(id).classList.toggle("active");
+        }
+
+        function showBio(event, name, bio) {
+            event.stopPropagation();
+            document.getElementById("modal-text").innerHTML = `<h2>${name}</h2><p style="margin-top:15px">${bio}</p>`;
+            document.getElementById("modal").style.display = "flex";
+        }
+
+        function showService(type) {
+            let text = {
+                lab: "Современная медицинская лаборатория, где выполняются различные виды анализов с высокой точностью. Мы используем качественные реагенты и современное оборудование для получения надежных результатов.",
+                iv: "В нашей клинике проводятся внутривенные капельницы и инъекции по назначению врача. Процедуры выполняются квалифицированными медсестрами с соблюдением всех медицинских стандартов."
+            };
+            document.getElementById("modal-text").innerHTML = `<p>${text[type]}</p>`;
+            document.getElementById("modal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
